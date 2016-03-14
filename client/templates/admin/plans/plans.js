@@ -31,6 +31,30 @@ Template.addplan.events({
     }
 })
 
+Template.editplan.events({
+    'submit .add-plan-form' : function(){
+        var plan_name = event.target.plan_name.value;
+        var plan_label = event.target.plan_label.value;
+        var days = event.target.days.value;
+        var description = event.target.description.value;
+        var is_default = event.target.is_default.value;
+        var price = event.target.price.value;
+        
+        Plans.update({
+            id: this._id
+        }, {
+            $set:{
+                 plan_name: plan_name,
+            plan_label: plan_label,
+            days: days,
+            price: price,
+            description: description,
+            is_default: is_default
+            }
+        });
+    }
+})
+
 Template.listplan.events({
     'click .delete-plan' : function(){
         if (confirm("Are you sure?")) {
