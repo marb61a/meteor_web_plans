@@ -30,3 +30,14 @@ Template.addplan.events({
         return false;
     }
 })
+
+Template.listplan.events({
+    'click .delete-plan' : function(){
+        if (confirm("Are you sure?")) {
+            Plans.remove(this._id);
+            toastr.success('Plan Deleted');
+            return false;
+        }
+        return false;   
+    }
+})
