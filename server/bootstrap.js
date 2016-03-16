@@ -1,15 +1,15 @@
 Meteor.startup(function(){
-    if(Meteor.users.find().count() < 1){
-        var users = [
-            {
+	if(Meteor.users.find().count() < 1){
+		var users = [
+			{
 				name: "Superuser",
 				email: "admin@example.com",
 				roles: ['admin']
 			}
-        ];
-        
-        _each(users, function(user){
-            var id;
+		];
+
+		_.each(users, function(user){
+			var id;
 
 			id = Accounts.createUser({
 				email: user.email,
@@ -22,12 +22,13 @@ Meteor.startup(function(){
 			if(user.roles.length > 0){
 				Roles.addUsersToRoles(id, user.roles);
 			}
-        });    
-    }
+		});
+	}
 });
 
+
 Accounts.onCreateUser(function(options, user){
-	Subscibers.insert({
+	Subscribers.insert({
 		user_id: user._id,
         user_email: user.emails[0].address,
         plan_id: getDefaultPlan()._id,
@@ -38,16 +39,16 @@ Accounts.onCreateUser(function(options, user){
         plan_price: getDefaultPlan().price,
         join_date: new Date()
 	});
-	
+
 	if(options.profile){
 		user.profile = options.profile;
 	}
-	
+
 	return user;
 });
 
 function getDefaultPlan(){
 	return Plans.findOne({
 		is_default: '1'
-	});	
+	});
 }

@@ -15,21 +15,21 @@ Template.addplan.events({
         var is_default = event.target.is_default.value;
         var price = event.target.price.value;
         
-        Plans.insert{
+        Plans.insert({
             plan_name: plan_name,
             plan_label: plan_label,
             days: days,
             price: price,
             description: description,
             is_default: is_default
-        }
+        });
         
         toastr.success('Plan Added');
         Router.go('/admin/plans');
         
         return false;
     }
-})
+});
 
 Template.editplan.events({
     'submit .add-plan-form' : function(){
@@ -53,7 +53,7 @@ Template.editplan.events({
             }
         });
     }
-})
+});
 
 Template.listplan.events({
     'click .delete-plan' : function(){
